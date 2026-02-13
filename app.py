@@ -4,24 +4,26 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
+from pathlib import Path
 
 # =============================
 # --- LLM and RAG Setup ---
 # =============================
 
+
 # Function that loads the document and creates the RAG pipeline
 def create_rag_chain(document_path):
     # Load the document
-    with open(document_path, 'r', encoding='utf-8') as f:
+    with open(document_path, "r", encoding="utf-8") as f:
         document_text = f.read()
 
     # 1. Split the document into small "chunks"
     # This makes it easier for the model to find relevant information.
     text_splitter = CharacterTextSplitter(
         separator="\n",
-        chunk_size=200,      # Chunk size (in characters)
-        chunk_overlap=50,    # Overlap between chunks
-        length_function=len
+        chunk_size=200,  # Chunk size (in characters)
+        chunk_overlap=50,  # Overlap between chunks
+        length_function=len,
     )
     docs = text_splitter.split_text(document_text)
 
@@ -37,10 +39,10 @@ def create_rag_chain(document_path):
     # 4. Configure connection to the local LLM server (LM Studio)
     llm = ChatOpenAI(
         # ↓↓↓ Paste LM Studio's "API Identifier" here ↓↓↓
-        model_name="local-model",            # Specify to use the local model
-        base_url="http://p52:8001/v1", # Address of the LM Studio server
-        api_key="not-needed",                # No API key needed for a local server
-        temperature=0.1                      # Low temperature to stick to reference text for reliable answers
+        model_name="local-model",  # Specify to use the local model
+        base_url="http://p52:8001/v1",  # Address of the LM Studio server
+        api_key="not-needed",  # No API key needed for a local server
+        temperature=0.1,  # Low temperature to stick to reference text for reliable answers
     )
 
     # 5. Create the RetrievalQA chain
@@ -52,9 +54,10 @@ def create_rag_chain(document_path):
         llm=llm,
         chain_type="stuff",  # "stuff" means stuffing all relevant chunks into the prompt
         retriever=retriever,
-        return_source_documents=True
+        return_source_documents=True,
     )
     return qa_chain
+
 
 # Create the RAG chain using knowledge.txt
 rag_chain = create_rag_chain("the-boston-cooking-school-cookbook.txt")
@@ -65,6 +68,7 @@ rag_chain = create_rag_chain("the-boston-cooking-school-cookbook.txt")
 
 st.title("Ratatouille AI")
 st.write("Lets get gooking")
+logo_path = Path() / "lui-logo.jpg"
 
 # Initialize chat history
 if "messages" not in st.session_state:
