@@ -66,7 +66,7 @@ rag_chain = create_rag_chain("the-boston-cooking-school-cookbook.txt")
 # --- Streamlit UI ---
 # =============================
 
-st.title("Ratatouille AI")
+st.title("Lui AI")
 st.write("Lets get gooking")
 logo_path = Path() / "lui-logo.jpg"
 
