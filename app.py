@@ -69,6 +69,8 @@ rag_chain = create_rag_chain("the-boston-cooking-school-cookbook.txt")
 st.title("Lui AI")
 st.write("Lets get gooking")
 logo_path = Path() / "lui-logo.jpg"
+st.image(str(logo_path), width=220)
+
 
 # Initialize chat history
 if "messages" not in st.session_state:
