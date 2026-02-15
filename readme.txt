@@ -6,3 +6,7 @@ pip install langchain langchain-community langchain-openai langchain-huggingface
 run
 
  streamlit run app.py
+
+
+For usage instructions, and general walk through please read my article here:
+https://nickapos.oncrete.uk/2026/02/14/cooking-with-lui-ai-an-intro-to-rag.html

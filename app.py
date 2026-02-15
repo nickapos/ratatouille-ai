@@ -40,7 +40,7 @@ def create_rag_chain(document_path):
     llm = ChatOpenAI(
         # ↓↓↓ Paste LM Studio's "API Identifier" here ↓↓↓
         model_name="local-model",  # Specify to use the local model
-        base_url="http://p52:8001/v1",  # Address of the LM Studio server
+        base_url="http://p52-scotland:8001/v1",  # Address of the LM Studio server
         api_key="not-needed",  # No API key needed for a local server
         temperature=0.1,  # Low temperature to stick to reference text for reliable answers
     )
